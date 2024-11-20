@@ -12,8 +12,11 @@ The file *gcm-sra.sh* is for downloading the original FASTQ files from NCBI SRA.
 
 ***gcm-sam-bam.sh*** Converts the SAM file output to BAM, and sorts the BAM file.
 
-***gcm-annotate-ucsc.sh*** Adds gene ID's and annotation for the UCSC format.
+***gcm-annotate-ucsc.sh*** Adds gene ID's and annotation for the UCSC HGChr38 format.
 
-The remaining annotation, gene counts tables, and visualization analysis are done in RStudio
+The remaining annotation, gene counts tables, and visualization analysis are done in RStudio with output from the .ctab format (Ballgown compatible)
+
+
+
 
 All repositories are breakfast-themed.
