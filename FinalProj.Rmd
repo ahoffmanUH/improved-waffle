@@ -1,0 +1,60 @@
+---
+title: "FinalProj-Bioinf"
+author: "Ashley Hoffman"
+date: "2024-11-17"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## GCM Clone Analysis
+
+Beginning with output from Stringtie ( our *.gtf* file and *.sam* file. This workflow covers generating TPM matrix tables and downstream analysis.
+First phase involves installing 
+
+```{Install packages}
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("ballgown")
+library(ballgown)
+install.packages("tidyverse")
+library(pheatmap)
+library(ggplot2)
+#library(DESeq2)
+```
+
+# Importing Data into RStudio done with sftp
+
+```{r, echo=FALSE}
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("ballgown")
+library(DESeq2)
+library(ballgown)
+```
+```{r, echo=F}
+#create heatmaps from dataset
+#utilize gene set from annotated ballgown output
+setwd("/Users/ashleyhoffman/Desktop/FOLDER_1/GCM-Analysis/")
+cfbg = ballgown(dataDir = "/Users/ashleyhoffman/Desktop/FOLDER_1/GCM-Analysis",samplePattern = "t_data.ctab")
+copdbg = ballgown()
+
+cfFPKM = ballgown::expr(cfballgown)
+copdFPKM = ballgown::expr(copdbg)
+
+#filter low level fpkm
+CFfilteredFPKM = expr_data[rowSums(cfFPKM >= 1) >= 1,]
+COPDfilteredFPKM = expr_data[rowSums(copdFPKM >= 1) >= 1,]
+head(CFfilteredFPKM)
+head(COPDfilteredFPKM)
+```
+
+Use *pheatmap* to generate heatmaps from FPKM values, as well as subsets of key genes
+
+```{r, echo=F}
+pheatmap(cfFPKM,clustering_distance_rows = "euclidean", 
+         clustering_distance_cols = "euclidean", 
+         clustering_method = "complete", scale = "row")
+```
